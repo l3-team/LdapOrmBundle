@@ -42,6 +42,8 @@ class AppKernel extends Kernel
 
 1.3. Configure the LDAP parameters
 
+For Symfony2 or Symfony3, add the l3_ldap_orm parameters in your config file (parameters.yml and parameters.yml.dist) :
+
 ```yaml
 l3_ldap_orm:
     connection:
@@ -63,7 +65,7 @@ Basic Usage
 To use the L3LdapOrmBundle you have to add annotation to an entity like this example:
 
 ```php
-namespace L3\Bundle\Application\Entity;
+namespace AppBundle\Entity;
 
 use L3\Bundle\LdapOrmBundle\Annotation\Ldap\Attribute;
 use L3\Bundle\LdapOrmBundle\Annotation\Ldap\ObjectClass;
@@ -75,8 +77,8 @@ use L3\Bundle\LdapOrmBundle\Annotation\Ldap\DnPregMatch;
 /**
  * Class for represent Account
  *
- * @ObjectClass("Account")
- * @Dn("hruid={{ entity.uid }},{% for entite in entity.entities %}ou={{ entite }},{% endfor %}{{ baseDN }}")
+ * @ObjectClass("udlAccount")
+ * @Dn("uid={{ entity.uid }},{% for entite in entity.entities %}ou={{ entite }},{% endfor %}{{ baseDN }}")
  */
 class Account
 {
@@ -86,17 +88,17 @@ class Account
     private $uid;
 
     /**
-     * @Attribute("firstname")
+     * @Attribute("givenName")
      */
     private $firstname;
 
     /**
-     * @Attribute("nom")
+     * @Attribute("sn")
      */
     private $lastname;
 
     /**
-     * @Attribute("alias")
+     * @Attribute("udlAliasLogin")
      * @ArrayField()
      */
     private $alias;
@@ -126,14 +128,14 @@ class Account
         $this->lastname = $lastname;
     }
 
-    public function getHruid()
+    public function getUid()
     {
-        return $this->hruid;
+        return $this->uid;
     }
 
-    public function setHruid($hruid)
+    public function setUid($uid)
     {
-        $this->hruid=$hruid;
+        $this->uid=$uid;
     }
 
     public function getPassword()
@@ -190,7 +192,7 @@ $em = $this->get('l3_ldap_orm.entity_manager');
 $em->persist($a);
 $em->flush();
 
-$repo = $em->getRepository('L3\Bundle\Application\Entity\Account');
+$repo = $em->getRepository('AppBundle\Entity\Account');
 $a = $repo->findOneByUid('john.doo');
 ```
 
@@ -200,7 +202,7 @@ Advanced Usage
 On can use the @DnLinkArray annotation to map a field and an other ldap object
 
 ```php
-namespace L3\Bundle\Application\Entity;
+namespace AppBundle\Entity;
 
 use L3\Bundle\LdapOrmBundle\Annotation\Ldap\Attribute;
 use L3\Bundle\LdapOrmBundle\Annotation\Ldap\ObjectClass;
@@ -212,7 +214,7 @@ use L3\Bundle\LdapOrmBundle\Annotation\Ldap\DnPregMatch;
 /**
  * Class for represent Groups
  *
- * @ObjectClass("Groups")
+ * @ObjectClass("groupOfNames")
  * @Dn("cn={{ entity.name }},{% for entite in entity.entities %}ou={{ entite }},{% endfor %}{{ baseDN }}")
  */
 class Group
@@ -229,8 +231,8 @@ class Group
     private $id;
 
     /**
-     * @Attribute("memberuid")
-     * @DnLinkArray("L3\Bundle\Application\Entity\Account")
+     * @Attribute("member")
+     * @DnLinkArray("AppBundle\Entity\Account")
      */
     private $members;
 
@@ -366,11 +368,11 @@ $g->addMember($a);
 $em->persist($g);
 $em->flush();
 
-$repo = $em->getRepository('L3\Bundle\Application\Entity\Account');
+$repo = $em->getRepository('AppBundle\Entity\Account');
 $a = $repo->findOneByUid('john.doo');
 
 /* Retreve all group of $a */
-$groupRepository = $em->getRepository('L3\Bundle\Application\Entity\Group');
+$groupRepository = $em->getRepository('AppBundle\Entity\Group');
 $groups = $groupRepository->findByMember($a);
 ```
 
