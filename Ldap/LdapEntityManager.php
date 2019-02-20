@@ -177,10 +177,12 @@ class LdapEntityManager
             if($value == null) {
                 if($instanceMetadataCollection->isSequence($instanceMetadataCollection->getKey($varname))) {
 
-                    $sequence = $this->renderString($instanceMetadataCollection->getSequence($instanceMetadataCollection->getKey($varname)), array(
+                    /*$sequence = $this->renderString($instanceMetadataCollection->getSequence($instanceMetadataCollection->getKey($varname)), array(
                         'entity' => $instance,
                         'baseDN' => $this->baseDN,
-                    ));
+                    ));*/
+                    $sequence = $this->twigRender($instanceMetadataCollection->getSequence($instanceMetadataCollection->getKey($varname)), ['entity' => $instance, 'baseDN' => $this->baseDN]);
+
 
                     $value = (int) $this->generateSequenceValue($sequence);
                     $instance->$setter($value);
@@ -229,10 +231,11 @@ class LdapEntityManager
         return $arrayInstance;
     }
 
-    private function renderString($string, $vars)
+    /*private function renderString($string, $vars)
     {
         return $this->twig->render($string, $vars);
-    }
+    }*/
+
     /**
      * Build a DN for an entity with the use of dn annotation
      * 
@@ -257,10 +260,11 @@ class LdapEntityManager
             }
         }
 
-        return $this->renderString($dnModel, array(
+        /*return $this->renderString($dnModel, array(
                 'entity' => $instance,
                 'baseDN' => $this->baseDN,
-                ));
+                ));*/
+        return $this->twigRender($dnModel, ['entity' => $instance, 'baseDN' => $this->baseDN]);
     }
 
     /**
@@ -644,5 +648,17 @@ class LdapEntityManager
     private function isSha1($str) {
         return (bool) preg_match('/^[0-9a-f]{40}$/i', $str);
     }
+
+    private function twigRender($templateString = null, $variables = null) {
+        if (!$templateString) {
+            return FALSE;
+        }
+        if (!$variables) {
+            return $templateString;
+        }
+        $template = $this->twig->createTemplate($templateString);
+        return $template->render($variables);
+    }
+
 }
 

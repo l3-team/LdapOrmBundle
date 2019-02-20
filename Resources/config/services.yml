@@ -4,5 +4,5 @@ parameters:
 
 services:
     l3_ldap_orm.entity_manager:
-        class: '%l3_ldap_orm.entity_manager.class%'
-        arguments: ['@logger', '@twig2', '@annotation_reader', '%l3_ldap_orm.config%']
+        class: "%l3_ldap_orm.entity_manager.class%"
+        arguments: ["@logger", "@twig", "@annotation_reader", "%l3_ldap_orm.config%"]
