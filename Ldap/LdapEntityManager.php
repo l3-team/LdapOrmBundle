@@ -47,7 +47,8 @@ class LdapEntityManager
     public function __construct(Logger $logger, \Twig_Environment $twig, Reader $reader, $config)
     {
         $this->logger     	= $logger;
-        $this->twig       	= $twig;
+        //$this->twig       	= $twig;
+        $this->twig       	= new \Twig_Environment(new \Twig_Loader_Array());
         $this->uri        	= $config['connection']['uri'];
         $this->bindDN     	= $config['connection']['bind_dn'];
         $this->password   	= $config['connection']['password'];
