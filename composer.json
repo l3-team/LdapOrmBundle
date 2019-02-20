@@ -1,0 +1,29 @@
+{
+    "name": "l3/ldaporm-bundle",
+    "type": "symfony-bundle",
+    "description": "An Ldap ORM for Symfony2/3/4",
+    "homepage":"https://github.com/l3-team/LdapOrmBundle",
+    "keywords": ["l3", "orm", "ldap"],
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Mathieu Hétru",
+            "email": "mathieu.hetru@univ-lille.fr"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/http-kernel": "~2.1",
+        "symfony/dependency-injection": "~2.1",
+        "symfony/framework-bundle": "~2.1",
+        "symfony/class-loader": "~2.1",
+        "symfony/yaml": "~2.1",
+        "symfony/monolog-bundle": "~2.1",
+        "symfony/twig-bundle": "~2.1"
+    },
+    "autoload": {
+        "psr-4": { "L3\\Bundle\\LdapOrmBundle\\": "" }
+    },
+    "minimum-stability": "dev"
+    "prefer-stable": true
+}

@@ -1,0 +1,8 @@
+parameters:
+    l3_ldap_orm.entity_manager.class: L3\Bundle\LdapOrmBundle\Ldap\LdapEntityManager
+    l3_ldap_orm.twig_extension.class: L3\Bundle\LdapOrmBundle\Twig\Extension\LdapFilter
+
+services:
+    l3_ldap_orm.entity_manager:
+        class: '%l3_ldap_orm.entity_manager.class%'
+        arguments: ['@logger', '@twig2', '@annotation_reader', '%l3_ldap_orm.config%']
