@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 L3LdapOrmBundle
 ===================
 
@@ -387,4 +386,3 @@ Included Features
 =======
 # LdapOrmBundle
 Symfony 2/3/4 Ldap Orm (Entity Manager)
->>>>>>> e3b15b81cb41527df42bdb791d2fd97e5d7c89e4
