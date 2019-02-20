@@ -25,6 +25,6 @@
     "autoload": {
         "psr-4": { "L3\\Bundle\\LdapOrmBundle\\": "" }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
