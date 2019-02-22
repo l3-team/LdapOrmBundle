@@ -332,6 +332,30 @@ class LdapEntityManager
         }
     }
 
+    public function query($query, $entityName, $limit = 0)
+    {
+        $instanceMetadataCollection = $this->getClassMetadata($entityName);
+
+        $data = array();
+        $sr = $this->doRawLdapSearch(
+            $query,
+            array_values($instanceMetadataCollection->getMetadatas()),
+            $limit
+        );
+        $infos = ldap_get_entries($this->ldapResource, $sr);
+
+        foreach ($infos as $entry) {
+            if(is_array($entry)) {
+                $data[] = $this->arrayToObject($entityName, $entry);
+            }
+        }
+        return $data;
+        //$result = $this->em->getClient()->search($query, array_merge($this->columns, array('objectclass')), $limit, $this->baseDn);
+        
+        
+        //return $this->manage($result);
+    }
+    
     /**
      * Send entity to database
      */

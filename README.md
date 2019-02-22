@@ -1,7 +1,7 @@
 L3LdapOrmBundle
 ===================
 
-L3LdapOrmBundle is a fork from GorgLdapOrmBundle for use without dependency "r1pp3rj4ck/TwigstringBundle" and use with Symfony version 2, 3 and 4.
+L3LdapOrmBundle is a fork from GorgLdapOrmBundle for use without dependency "r1pp3rj4ck/TwigstringBundle" and use with Symfony version 2, 3 and 4, and add a system of complex Query and Conditions LDAP.
 It is an interface for retrieving, modifying and persisting LDAP entities, using PHP's native LDAP functions.
 
 Installation
@@ -196,6 +196,22 @@ $repo = $em->getRepository('AppBundle\Entity\Account');
 $a = $repo->findOneByUid('john.doo');
 ```
 
+you also can set complex request ldap :
+```php
+$conditions = Array();
+$not = true;
+$conditions[] = new Condition('sn', 'Hetru');
+$conditions[] = new Condition('sn', 'Bomy', $not);
+        
+$query = new Query(Query::CAND); 
+$query->cAnd($conditions);
+        
+$em = $this->get('l3_ldap_orm.entity_manager');
+$repo = $em->getRepository('AppBundle\Entity\Account');
+$a = $repo->findByQuery($query);
+```
+
+
 Advanced Usage
 --------------
 
@@ -379,10 +395,10 @@ $groups = $groupRepository->findByMember($a);
 Included Features
 -----------------
 
-* manage ldap enity
+* manage ldap entity
   * persist entity
   * delete entity
-  * retrive entity
+  * retrieve entity
 * Find in ldap by Attribute
 * Find in ldap by References
 =======
