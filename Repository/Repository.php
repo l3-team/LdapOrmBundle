@@ -5,6 +5,7 @@ namespace L3\Bundle\LdapOrmBundle\Repository;
 use L3\Bundle\LdapOrmBundle\Ldap\LdapEntityManager;
 use L3\Bundle\LdapOrmBundle\Mapping\ClassMetaDataCollection;
 use L3\Bundle\LdapOrmBundle\Ldap\Filter\LdapFilter;
+use L3\Bundle\LdapOrmBundle\Builder\Query;
 
 /**
  * Repository for fetching ldap entity
@@ -28,6 +29,11 @@ class Repository
         $this->entityName = $class->name;
     }
 
+    public function getClass()
+    {
+        return $this->class;
+    }
+    
     /**
      * Adds support for magic finders.
      *
@@ -251,5 +257,11 @@ class Repository
      */
     public function findInArray($varname, $value) {
         return $this->em->retrieve($this->getFilter($varname, $this->em->buildEntityDn($value)), $this->entityName);
+    }
+    
+    public function findByQuery(Query $query, $limit = 0)
+    {
+        $query = '(&(objectclass=*)' . $query->getQueryForRepository($this) . ')';
+        return $this->em->query($query, $this->entityName, $limit);
     }
 }
