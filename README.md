@@ -401,6 +401,3 @@ Included Features
   * retrieve entity
 * Find in ldap by Attribute
 * Find in ldap by References
-=======
-# LdapOrmBundle
-Symfony 2/3/4 Ldap Orm (Entity Manager)
