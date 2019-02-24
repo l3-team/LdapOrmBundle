@@ -1,5 +1,5 @@
 {
-    "name": "l3/ldaporm-bundle",
+    "name": "l3/ldap-orm-bundle",
     "type": "symfony-bundle",
     "description": "An Ldap ORM for Symfony2/3/4",
     "homepage":"https://github.com/l3-team/LdapOrmBundle",
