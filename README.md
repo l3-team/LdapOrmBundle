@@ -14,7 +14,7 @@ Add this bundle to your project in `composer.json`:
 Simple add this line in your require in your composer.json :
 
 ```
-"l3/ldaporm-bundle": "~1.0"
+"l3/ldap-orm-bundle": "~1.0"
 ```
 
 1.2. Declare the use of `L3LdapOrmBundle`
