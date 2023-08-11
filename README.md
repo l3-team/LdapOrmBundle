@@ -7,14 +7,12 @@ It is an interface for retrieving, modifying and persisting LDAP entities, using
 Installation
 ------------
 
-Add this bundle to your project in `composer.json`:
-
 1.1. Plain `L3LdapOrmBundle`
 
-Simple add this line in your require in your composer.json :
+Install the Bundle with this command :
 
 ```
-"l3/ldap-orm-bundle": "~1.0"
+composer require l3/ldap-orm-bundle:~1.0
 ```
 
 1.2. Declare the use of `L3LdapOrmBundle`
